@@ -51,7 +51,7 @@ def extract_text_from_image(image):
         return f"Error: {str(e)}"
 
 # Streamlit UI
-st.title("Image to Text Extractor using Mistral AI OCR")
+st.title("Extracting Invoice Text")
 st.write("Upload an image to extract text.")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
