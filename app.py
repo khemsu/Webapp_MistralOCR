@@ -45,10 +45,26 @@ def convert_pdf_page_to_image(file):
 def encode_image(image):
     img_byte_array = io.BytesIO()
     image.save(img_byte_array, format="PNG") 
+
+
+# Load API key from .env file
+load_dotenv()
+api_key = os.getenv("MISTRAL_API_KEY")
+
+# Initialize Mistral AI client
+client = Mistral(api_key=api_key)
+
+def encode_image(image):
+    """Encode an uploaded image to base64."""
+    img_byte_array = io.BytesIO()
+    image.save(img_byte_array, format="PNG")  # Convert image to bytes
     base64_encoded = base64.b64encode(img_byte_array.getvalue()).decode("utf-8")
     return base64_encoded
 
 def extract_text_from_image(image):
+    base64_image = encode_image(image)
+
+    """Send the image to Mistral AI OCR and extract text."""
     base64_image = encode_image(image)
     messages = [
         {
